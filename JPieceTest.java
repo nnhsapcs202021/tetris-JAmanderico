@@ -103,7 +103,7 @@ class JPieceTest extends JComponent
         JFrame frame = new JFrame("Piece Tester");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JComponent container = (JComponent)frame.getContentPane();
-
+        
         // put in a BoxLayout to make a vertical list
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 

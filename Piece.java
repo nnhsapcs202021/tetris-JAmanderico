@@ -43,7 +43,49 @@ public final class Piece {
      */
     private Piece(Point[] points)
     {
-        // TODO: implement constructor
+        this.body = new Point[points.length];
+        // TODO: copy the points array and copy the Point elements in the 
+        //  array
+        //  Note: this.body = points copies the reference to the array 
+        //      referenced by points; it does not create a new array of 
+        //      references to Point objects
+        //  Note: this.body[i] = points[i] copies a reference to a Point 
+        //      object; it does not create a new Point object with the 
+        //      same x and y attributes as the element in the points array
+        double[] xArray = new double[points.length];    //array of all x values
+        double[] yArray = new double[points.length];
+        for( int i = 0; i < points.length; i++ )
+        {
+            this.body[i] = points[i].getLocation();
+            xArray[i] = this.body[i].getX(); yArray[i] = this.body[i].getY();
+        }
+        
+        // TODO: initialize the width instance variable with the width of the piece
+        
+        double x, w = 0;
+        for( int i = 0; i< xArray.length; i++ )
+        {
+            x = xArray[i];
+            if( x > w ){w = x;}  
+        }
+        this.width = (int) Math.round(w);
+        
+        // TODO: initialize the height instance variable with the height of the piece
+        
+        double y, h = 0;
+        for( int i = 0; i< yArray.length; i++ )
+        {
+            y = yArray[i];
+            if( y > h ){h = y;}  
+        }
+        this.height = (int) Math.round(h);
+        
+        // TODO: initialize the skirt instance variable
+        //  Note: carefully read and description of the skirt in the lab document;
+        //      this is the most challenging algorithm in this constructor
+        //this.body = points;
+        
+        System.out.println("Width: " + this.width );
     }   
 
     /**

@@ -83,9 +83,41 @@ public final class Piece {
         // TODO: initialize the skirt instance variable
         //  Note: carefully read and description of the skirt in the lab document;
         //      this is the most challenging algorithm in this constructor
-        //this.body = points;
         
-        System.out.println("Width: " + this.width );
+        skirt = new int[this.width];
+        for( double i = 0; i < xArray.length; i++)  // scroll through every x value
+        {
+            // find num of y-values to specified x-value
+            int q = 0;  // size of xIteration (size of array of y-values to specified x-value)
+            for( Point point : this.body)
+            {
+                if( point.getX() == i )
+                {
+                    q++;
+                }
+            }
+            // assign all points (with x-value=1) to the array xIteration[]
+            Point[] xIteration = new Point[q];  // array of y-values to specified x-value [i]
+            int z = this.body.length;
+            for( Point point : this.body)
+            {
+                if( point.getX() == i )
+                {
+                    xIteration[this.body.length - z] = point;
+                }
+                z--;
+            }
+            // find lowest y-values
+            double lowest = xIteration[0].getY();
+            for(Point point : xIteration)
+            {
+                if( point.getY() < lowest)
+                    lowest = point.getY();
+            }
+        }
+        
+        
+        //System.out.println("Width: " + this.width );
     }   
 
     /**
@@ -317,3 +349,9 @@ public final class Piece {
         return(array);
     }
 }
+
+
+
+
+
+

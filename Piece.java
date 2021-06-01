@@ -57,66 +57,73 @@ public final class Piece {
         for( int i = 0; i < points.length; i++ )
         {
             this.body[i] = points[i].getLocation();
-            xArray[i] = this.body[i].getX(); yArray[i] = this.body[i].getY();
+            xArray[i] = this.body[i].getX() + 1;    yArray[i] = this.body[i].getY() + 1;
         }
-        
+
         // TODO: initialize the width instance variable with the width of the piece
-        
-        double x, w = 0;
+
+        double x, w = 1;
         for( int i = 0; i< xArray.length; i++ )
         {
             x = xArray[i];
             if( x > w ){w = x;}  
         }
-        this.width = (int) Math.round(w);
-        
+        this.width = (int) w;
+
         // TODO: initialize the height instance variable with the height of the piece
-        
-        double y, h = 0;
+
+        double y, h = 1;
         for( int i = 0; i< yArray.length; i++ )
         {
             y = yArray[i];
             if( y > h ){h = y;}  
         }
-        this.height = (int) Math.round(h);
-        
+        this.height = (int) h;
+
         // TODO: initialize the skirt instance variable
         //  Note: carefully read and description of the skirt in the lab document;
         //      this is the most challenging algorithm in this constructor
-        
-        skirt = new int[this.width];
+
+        skirt = new int[xArray.length];
+
         for( double i = 0; i < xArray.length; i++)  // scroll through every x value
         {
             // find num of y-values to specified x-value
-            int q = 0;  // size of xIteration (size of array of y-values to specified x-value)
+            //int q = 0;  // size of xIteration (size of array of y-values to specified x-value)
             for( Point point : this.body)
             {
                 if( point.getX() == i )
                 {
-                    q++;
+                    // find lowest y-values
+                    int lowest = (int) point.getY();
+                    if(skirt[(int) i] > (lowest))
+                    {
+                        skirt[(int) i] = lowest;
+                    }   
+                    //q++;
                 }
             }
             // assign all points (with x-value=1) to the array xIteration[]
-            Point[] xIteration = new Point[q];  // array of y-values to specified x-value [i]
-            int z = this.body.length;
-            for( Point point : this.body)
-            {
-                if( point.getX() == i )
-                {
-                    xIteration[this.body.length - z] = point;
-                }
-                z--;
-            }
-            // find lowest y-values
-            double lowest = xIteration[0].getY();
-            for(Point point : xIteration)
-            {
-                if( point.getY() < lowest)
-                    lowest = point.getY();
-            }
+            // Point[] xIteration = new Point[q];  // array of y-values to specified x-value [i]
+            // int z = this.body.length;
+            // for( Point point : this.body)
+            // {
+            // if( point.getX() == i )
+            // {
+            // xIteration[this.body.length - (z--)] = point;
+            // }
+            // //z--;
+            // }
+            // // find lowest y-values
+            // double lowest = xIteration[0].getY();
+            // for(Point point : xIteration)
+            // {
+            // if( point.getY() < lowest)
+            // lowest = point.getY();
+            // }
+            // skirt[(int) i] = (int) lowest;
         }
-        
-        
+
         //System.out.println("Width: " + this.width );
     }   
 
@@ -231,12 +238,12 @@ public final class Piece {
     public String toString()
     {
         String str = "";
-        
+
         // TODO: build a string that contains all of the attributes of this Piece
-        
+
         return str;
     }
-    
+
     /**
      * Returns an array containing the first rotation of each of the 7 standard
      *      tetris pieces. The next (counterclockwise) rotation can be obtained
@@ -278,7 +285,7 @@ public final class Piece {
     private static Piece pieceRow(Piece firstPiece)
     {
         Piece piece = firstPiece;
-        
+
         System.out.println("\nfirst piece: " + piece);
 
         // maximum of 4 rotations until we are back at the first piece (we may break earlier)
@@ -293,13 +300,22 @@ public final class Piece {
 
             // TODO: step 1: reflect across the line y = x
             
+            for( Point point : rotatedPoints )
+            {
+                point.setLocation((int) point.getY(), 
+                                   (int) point.getX() );
+                
+            }
+            
             // TODO: step 2: reflect across y axis
+
+            
             
             // TODO: step 3: translate right
-            
-            // create the rotated piece, update next, prepare for nextIteration
+
+            // create ;the rotated piece, update next, prepare for nextIteration
             Piece rotatedPiece = new Piece(rotatedPoints);
-            
+
             System.out.println(rotatedPiece);
 
             // check if we are back to the original piece
@@ -349,9 +365,6 @@ public final class Piece {
         return(array);
     }
 }
-
-
-
 
 
 

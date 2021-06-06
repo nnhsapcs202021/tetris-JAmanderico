@@ -88,43 +88,21 @@ public final class Piece {
 
         for( double i = 0; i < xArray.length; i++)  // scroll through every x value
         {
-            // find num of y-values to specified x-value
-            //int q = 0;  // size of xIteration (size of array of y-values to specified x-value)
+            skirt[ (int) i ] = 3;
             for( Point point : this.body)
             {
                 if( point.getX() == i )
                 {
                     // find lowest y-values
-                    int lowest = (int) point.getY();
-                    if(skirt[(int) i] > (lowest))
+                    int lowest = (int) point.getY() ;
+                    if( skirt[ (int) i ] > lowest )
                     {
                         skirt[(int) i] = lowest;
-                    }   
-                    //q++;
+                    }
                 }
             }
-            // assign all points (with x-value=1) to the array xIteration[]
-            // Point[] xIteration = new Point[q];  // array of y-values to specified x-value [i]
-            // int z = this.body.length;
-            // for( Point point : this.body)
-            // {
-            // if( point.getX() == i )
-            // {
-            // xIteration[this.body.length - (z--)] = point;
-            // }
-            // //z--;
-            // }
-            // // find lowest y-values
-            // double lowest = xIteration[0].getY();
-            // for(Point point : xIteration)
-            // {
-            // if( point.getY() < lowest)
-            // lowest = point.getY();
-            // }
-            // skirt[(int) i] = (int) lowest;
         }
 
-        //System.out.println("Width: " + this.width );
     }   
 
     /**
@@ -298,20 +276,28 @@ public final class Piece {
                 rotatedPoints[i] = new Point(piece.getBody()[i]);
             }
 
-            // TODO: step 1: reflect across the line y = x
             
             for( Point point : rotatedPoints )
             {
-                point.setLocation((int) point.getY(), 
-                                   (int) point.getX() );
+                // TODO: step 1: reflect across the line y = x
+                //point.setLocation( ( (int) point.getX() ), 
+                //                  ( (int) point.getY() ) );
+                point.setLocation( (int) point.getY() - piece.getHeight() + 1, 
+                                   (int) point.getX());
+                // TODO: step 2: reflect across y axis
+                point.translate( ((int) point.getX()) * -2, 0 );
+                //point.setLocation( (int) point.getX(), ( (int) point.getY() ) * -1 );
                 
+                // TODO: step 3: translate right
+                
+                // point.setLocation( (int) point.getX(), 
+                           //        (int) point.getY() - piece.getHeight());
             }
             
-            // TODO: step 2: reflect across y axis
 
             
             
-            // TODO: step 3: translate right
+            
 
             // create ;the rotated piece, update next, prepare for nextIteration
             Piece rotatedPiece = new Piece(rotatedPoints);

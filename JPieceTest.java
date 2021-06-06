@@ -74,12 +74,12 @@ class JPieceTest extends JComponent
                     r.getX() + (point.x * pixelSize) + 1,
                     r.getY() + ((3 - point.y) * pixelSize) + 1,
                     pixelSize - 2, pixelSize - 2);
-
-            // draw skirt pixels in yellow
-            if(point.y == piece.getSkirt()[point.x])
-            {
-                g2.setColor(Color.YELLOW);
-            }
+            int i = point.x;
+            //draw skirt pixels in yellow
+             if(point.y == piece.getSkirt()[point.x])
+             {
+                 g2.setColor(Color.YELLOW);
+             }
 
             g2.fill(pixel);
 
